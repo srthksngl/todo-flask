@@ -1,0 +1,68 @@
+
+  {% extends 'base.html' %}
+  {% block title %}
+    Home
+  {% endblock title %}
+  
+  {% block body %}
+    <div class="container">
+    <h1>
+      My myClassroom
+    </h1>
+    <form action="/" method="POST">
+      <div class="mb-3">
+        <label for="title" class="form-label">todo title</label>
+        <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+      </div>
+      <div class="mb-3">
+        <label for="desc" class="form-label">todo description </label>
+        <input type="text" class="form-control" name="desc" id="desc">
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div>
+      <button type="submit" class="btn btn-dark">Submit</button>
+    </form>
+  </div>
+  <div class="container">
+    <h2>
+      myClasses
+    </h2>
+    {% if allTodo|length==0 %}
+    <div class="alert alert-dark" role="alert">
+      No todos!
+    </div>
+    {% else %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">title</th>
+          <th scope="col">desc</th>
+          <th scope="col">time</th>
+          <th scope="col">action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for todo in allTodo %}
+        <tr>
+          <th scope="row">{{loop.index}}</th>
+          <td>{{todo.title}}</td>
+          <td>{{todo.desc}}</td>
+          <td >{{todo.date_created}}</td>
+          <td>
+            <a href="/delete/{{todo.sno}}" type="button" class="btn btn-light btn-outline-dark btn-sm mx-1">Delete</button>
+            <a href="/update/{{todo.sno}}" type="button" class="btn btn-outline-dark btn-sm mx-1">Update</button>
+          </td>
+        </tr>
+        {% endfor %}
+        
+      </tbody>
+    </table>
+    {% endif %}
+    
+  </div>
+
+
+  {% endblock body %}
